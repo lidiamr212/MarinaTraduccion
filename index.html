@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/output.css" rel="stylesheet">
+    
+    <title>Marina Traducción</title>
+
+    <link rel="alternate" hreflang="xx">
+</head>
+
+<body>
+
+<header>
+
+<div id="main-header" class="group fixed top-0 left-0 w-screen grid grid-cols-3 items-center py-4 sm:px-15 px-7 bg-blancoGris/85 shadow-sm   z-70 transform translate-y-0 transition-transform duration-300 ease-in-out ">
+
+<svg width="136" height="17" class="group-[.menu-active]:opacity-0 transition-opacity duration-300 justify-self-start"><use xlink:href="assets/sprite.svg#icon-logo"></use></svg>
+
+<nav aria-label="Selección de idioma" class="group-[.menu-active]:opacity-0 justify-self-center transition-opacity duration-300 sm:block">
+        <ul class="flex justify-between gap-3">
+            <li class=" w-8 py-1 border border-primary rounded-sm text-base font-light font-stretch-92% text-primary text-center"> 
+                <a href="/es" hreflang="es" title="Español">ES</a> </li>
+            <li class="text-primary m-auto">/</li>
+            <li class=" w-8 py-1 text-base  font-stretch-92% text-black text-center hover:bg-azulClaro border border-transparent rounded-sm"> 
+                <a href="/es" hreflang="es" title="Español">ES</a> </li>
+            <li class="text-primary m-auto">/</li>
+            <li class=" w-8 py-1  text-base font-stretch-92% text-black text-center  hover:bg-azulClaro border border-transparent rounded-sm"> 
+                <a href="/es" hreflang="es" title="Español">ES</a> </li>
+            <li class="text-primary m-auto">/</li>
+            <li class=" w-8 py-1 text-base  font-stretch-92% text-black text-center   hover:bg-azulClaro border border-transparent rounded-sm"> 
+                <a href="/es" hreflang="es" title="Español">ES</a> </li>
+        </ul>
+</nav>
+
+
+
+<button id="menu-btn" class="z-100 flex flex-col gap-1 group justify-self-end">
+            <span class="w-5 h-0.5 bg-primary transition-all duration-300 group-[.open]:rotate-45 group-[.open]:translate-y-1.5 group-[.open]:bg-white"></span>
+            <span class="w-5 h-0.5 bg-primary transition-all duration-300 group-[.open]:opacity-0"></span>
+            <span class="w-5 h-0.5 bg-primary transition-all duration-300 group-[.open]:-rotate-45 group-[.open]:-translate-y-1.5 group-[.open]:bg-white"></span>
+</button>
+   
+</div>
+
+<div id="full-menu" class="fixed top-0 left-0 w-full h-70vh bg-primary z-50 transform -translate-y-full transition-transform duration-700 ease-[cubic-bezier(0.85,0,0.15,1)] shadow-2xl flex flex-col gap-5 justify-center p-10">
+  
+  <ul class="flex flex-col gap-3 text-4xl md:text-6xl font-medium tracking-[0.010em] text-azulClaro">
+    <li>
+      <a href="#servicios" class="hover:text-verdeClaro transition-colors inline-block">Mis servicios</a>
+    </li>
+    <li>
+      <a href="#clientes" class="hover:text-verdeClaro transition-colors inline-block">Clientes y opiniones</a>
+    </li>
+    <li>
+      <a href="#contacto" class="hover:text-verdeClaro transition-colors inline-block">Hablemos</a>
+    </li>
+  </ul>
+
+  <div class=" bottom-10 left-10 right-10 flex justify-between text-sm  border-t pt-4 text-azulClaro border-azulClaro">
+    <span>© 2026 Marina Traducción</span>
+    <div class="flex gap-4">
+      <a href="#">LinkedIn</a>
+      <a href="mailto:uncorreo@oalgo.com">uncorreo@oalgo.com</a>
+    </div>
+  </div>
+</div>
+
+
+</header>
+
+<main class="w-screen flex flex-col items-center bg-blancoGris pt-20">
+
+<section class=" flex flex-col items-center gap-5 pt-16 px-8 text-center ">
+    <h1 id="titulo"class="lg:text-8xl sm:text-7xl text-5xl font-semibold text-naranja"></h1>
+    <h2 id="subtitulo" class="text-lg font-extralight max-w-xl"></h2>
+
+    <div class="flex flex-wrap justify-center text-xs gap-3 ">
+        <button onclick="cambiarIdioma('es')" type="button" lang="es" class="bg-azulClaro text-black btn-primary hover:bg-verdeClaro active:bg-verdeClaro hover:text-black">ESPAÑOL</button>
+        <button onclick="cambiarIdioma('en')" type="button" lang="en" class="bg-azulClaro text-black btn-primary hover:bg-verdeClaro  active:bg-verdeClaro hover:text-black">INGLES</button>
+        <button onclick="cambiarIdioma('it')" type="button" lang="it" class="bg-azulClaro text-black btn-primary hover:bg-verdeClaro active:bg-verdeClaro hover:text-black">ITALIANO</button>
+        <button onclick="cambiarIdioma('fr')" type="button" lang="fr" class="bg-azulClaro text-black btn-primary hover:bg-verdeClaro active:bg-verdeClaro hover:text-black ">FRANCES</button>
+    </div>
+</section>
+
+<script>
+const btn = document.getElementById('menu-btn');
+const menu = document.getElementById('full-menu');
+const header = document.getElementById('main-header');
+const menuLinks = document.querySelectorAll('#full-menu a');
+
+let lastScrollY = window.scrollY;
+let isMenuOpen = false;
+
+// FUNCIÓN ÚNICA PARA CERRAR
+function closeMenu() {
+  isMenuOpen = false;
+  header.classList.remove('menu-active');
+  header.classList.add('bg-blancoGris/85', 'shadow-sm');
+  menu.classList.replace('translate-y-0', '-translate-y-full');
+  btn.classList.remove('open');
+}
+
+// Evento para el botón (Toggle)
+btn.addEventListener('click', () => {
+  if (!isMenuOpen) {
+    // ABRIR
+    isMenuOpen = true;
+    header.classList.add('menu-active');
+    header.classList.remove('bg-blancoGris/85', 'shadow-sm');
+    menu.classList.replace('-translate-y-full', 'translate-y-0');
+    header.classList.replace('-translate-y-full', 'translate-y-0'); // Asegura que se vea
+    btn.classList.add('open');
+  } else {
+    // CERRAR
+    closeMenu();
+  }
+});
+
+// Evento para los enlaces
+menuLinks.forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+// Lógica de Scroll
+window.addEventListener('scroll', () => {
+  if (isMenuOpen) return;
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > lastScrollY && currentScrollY > 80) {
+    header.classList.replace('translate-y-0', '-translate-y-full');
+  } else if (currentScrollY < lastScrollY) {
+    header.classList.replace('-translate-y-full', 'translate-y-0');
+  }
+  lastScrollY = currentScrollY;
+});
+
+//Control textos y traducciones
+
+   const textos = {
+    es: {
+      titulo: "Traducciones\norgánicas\nque eliminan las\nfronteras.",
+      subtitulo: "Ofrecemos traducciones que fluyen con la naturalidad de un texto nativo, respetando los modismos, la cultura y el alma de cada lengua."
+    },
+    en: {
+      titulo: "Organic\ntranslations\nthat remove every\nbarriers",
+      subtitulo: "We offer translations that flow with the naturalness of a native text, respecting the idioms, culture, and soul of each language."
+    },
+    fr: {
+      titulo: "Traductions\norganiques\nqui éliminent les\nfrontières.",
+      subtitulo: "Nous proposons des traductions qui s’écoulent avec la fluidité d’un texte natif, en respectant les expressions, la culture et l’âme de chaque langue."
+    }
+  };
+
+  function cambiarIdioma(idioma) {
+    document.getElementById("titulo").innerText = textos[idioma].titulo;
+    document.getElementById("subtitulo").innerText = textos[idioma].subtitulo;
+  }
+
+  // idioma por defecto
+  cambiarIdioma('es');
+  </script>
+<figure class="w-full overflow-hidden relative pt-22">
+    <img width="89" height="89" class="animate-navegar absolute top-5 will-change-transform" src="/IMG/barco.svg" alt="Boat"> 
+
+    <div class="h-6 w-full bg-[url('/IMG/olas.svg')] bg-repeat-x  bg-bottom will-change-transform"></div>
+    <div class="h-6 w-full bg-[url('/IMG/olas.svg')] bg-repeat-x bg-bottom will-change-transform"></div>
+    <div class="h-6 w-full bg-[url('/IMG/olas2.svg')] bg-repeat-x bg-bottom will-change-transform"></div>
+</figure>
+
+
+
+<!--  --   SECCIÓN 1  --  -->
+<section  class="w-screen bg-primary sm:px-19 px-8 pt-25 pb-30">
+
+    <!--   Titulo/bocadillo  -->
+    <div class="flex flex-col gap-3 sm:gap-1 sm:items-start items-center max-w-140 lg:ml-30 sm:pl-6 sm:pb-25 pb-5 sm:border-l sm:border-white group">
+        <span class="w-auto text-sm text-blancoGris group-hover:text-primary-claro  transition-all duration-300">LA REALIDAD</span>
+        <h2 class=" text-3xl text-blancoGris max-w-lg text-center sm:text-left tracking-normal group-hover:text-primary-claro  transition-all duration-300">
+            La diferencia entre ser leído y ser comprendido reside en los matices de una <span class="text-white">traducción precisa</span></h2>
+    </div>
+    
+    <div class="grid gap-10 justify-center m-auto
+              xl:grid-cols-4 xl:max-w-7xl
+              sm:grid-cols-2 sm:max-w-2xl
+              grid-cols-1 ">
+
+    <!--   Ilustración 1  -->
+        <article class="flex items-center justify-center">
+            <img src="/IMG/ilus1.svg" alt="Ilustración 1">
+        </article> 
+        
+    <!--   Cards  Problemas -->
+        <article class="relative flex flex-col items-start gap-4 bg-white border rounded-md px-5 py-9  hover:border-white transition-colors duration-300">
+            <h3 class="text-2xl text-primary">Genera la confianza</h3>
+            <p class="text-base font-extralight sm:h-35">Traducir no es simplemente sustituir una palabra por otra, es construir la credibilidad necesaria para sonar natural, profesional y auténtico en cada idioma.</p>
+            <span>
+            <h6 class="text-sm text-primary">ORIGINAL</h6>
+            <p class="text-base font-extralight italic">Contact us if you need help.</p>
+            </span> 
+            <div class="linea"></div>
+            <span>
+            <h6 class="text-sm text-primary">TRADUCCIÓN MAL ADAPTADA</h6>
+            <p class="text-base font-extralight italic">Contáctanos si necesitas ayuda </p>
+            </span>
+            
+            <div class="relative inline-block group">          
+                <button class="btn-primary text-naranja border-naranja hover:bg-naranjaClaro">CORREGIR</button>
+
+                <aside class="absolute w-78 -bottom-27 -left-16  bg-slate-50 p-3 rounded-md border border-black
+                                opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none
+                                before:content-[''] before:absolute before:top-0 before:left-25 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent  before:border-b-neutral-600">
+                <p class="relative text-base font-extralight  text-black">Lorem ipsum dolor sit amet <mark>stap pim</mark>, consectetur adipiscing elit. <mark>interdum lectus eu placerat</mark> rutrum.</p>
+                </aside>
+            </div>
+        </article>
+
+         <article class="relative flex flex-col items-start gap-4 bg-white border rounded-md px-5 py-9  hover:border-white transition-colors duration-300">
+            <h3 class="text-2xl text-primary">Genera la confianza</h3>
+            <p class="text-base font-extralight sm:h-35">Traducir no es simplemente sustituir una palabra por otra, es construir la credibilidad necesaria para sonar natural, profesional y auténtico en cada idioma.</p>
+            <span>
+            <h6 class="text-sm text-primary">ORIGINAL</h6>
+            <p class="text-base font-extralight italic">Contact us if you need help.</p>
+            </span> 
+            <div class="linea"></div>
+            <span>
+            <h6 class="text-sm text-primary">TRADUCCIÓN MAL ADAPTADA</h6>
+            <p class="text-base font-extralight italic">Contáctanos si necesitas ayuda </p>
+            </span>
+            
+            <div class="relative inline-block group">          
+                <button class="btn-primary text-naranja border-naranja hover:naranjaClaro">CORREGIR</button>
+
+                <aside class="absolute w-78 -bottom-27 -left-16  bg-slate-50 p-3 rounded-md border border-black
+                                opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none
+                                before:content-[''] before:absolute before:top-0 before:left-25 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent  before:border-b-neutral-600">
+                <p class="relative text-base font-extralight  text-black">Lorem ipsum dolor sit amet <mark>stap pim</mark>, consectetur adipiscing elit. <mark>interdum lectus eu placerat</mark> rutrum.</p>
+                </aside>
+            </div>
+        </article>
+
+         <article class="relative flex flex-col items-start gap-4 bg-white border rounded-md px-5 py-9  hover:border-white transition-colors duration-300">
+            <h3 class="text-2xl text-primary">Genera la confianza</h3>
+            <p class="text-base font-extralight sm:h-35">Traducir no es simplemente sustituir una palabra por otra, es construir la credibilidad necesaria para sonar natural, profesional y auténtico en cada idioma.</p>
+            <span>
+            <h6 class="text-sm text-primary">ORIGINAL</h6>
+            <p class="text-base font-extralight italic">Contact us if you need help.</p>
+            </span> 
+            <div class="linea"></div>
+            <span>
+            <h6 class="text-sm text-primary">TRADUCIÓN MAL ADAPTADA</h6>
+            <p class="text-base font-extralight italic">Contáctanos si necesitas ayuda </p>
+            </span>
+            
+            <div class="relative inline-block group">          
+                <button class="btn-primary text-naranja border-naranja hover:naranjaClaro">CORREGIR</button>
+
+                <aside class="absolute w-78 -bottom-27 -left-16  bg-slate-50 p-3 rounded-md border border-black
+                                opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none
+                                before:content-[''] before:absolute before:top-0 before:left-25 before:-translate-x-1/2 before:-translate-y-full before:border-8 before:border-transparent  before:border-b-neutral-600">
+                <p class="relative text-base font-extralight  text-black">Lorem ipsum dolor sit amet <mark>stap pim</mark>, consectetur adipiscing elit. <mark>interdum lectus eu placerat</mark> rutrum.</p>
+                </aside>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+
+<!--   SECCIÓN 2  -->
+
+<div class="w-full px-12 ">
+<section id="servicios" class="w-full xl:max-w-7xl lg:max-w-5xl sm:max-w-2xl flex flex-col items-start gap-9 py-25 bg-blancoGris m-auto ">
+
+    <!--   Titulo  -->
+        <div class="w-full m-auto" >
+            <div class="flex flex-col w-full sm:items-start items-center gap-3">
+                <span class=" bg-verdeClaro btn-primary border-0">OYE!</span>
+                <h2 class="text-6xl/13 font-[550] text-center sm:text-left text-primary">
+                    No te conformes<br>con que te entiendan.</h2>
+            </div>
+        </div>
+
+    <div class="w-full flex lg:flex-row md:gap-10 flex-col m-auto">
+
+        <div class="w-full flex flex-col gap-5 sm:gap-10 sm:pr-10">
+            <p class="text-xl/6 text-center sm:text-left text-black">
+                Asegúrate de que tu mensaje genere el impacto que habías planeado desde el principio. Dando importancia a lo mas importante, las palabras</p>
+            <img src="IMG/ilus2.svg" class="w-[80%] h-auto object-contain m-auto">
+            
+        </div>
+        <!--   Segundo Columna  -->
+        <div class="w-full flex flex-col sm:gap-9 gap-13">
+            <p class="text-base font-extralight text-center sm:text-left">Hola, <span class="text-naranja">soy Marina.</span> Ayudo a marcas de e-commerce y turismo a conquistar nuevos mercados mediante traducciones optimizadas. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation u laboris nisi ut </p>
+
+            <!--   CARD Diferencias  -->
+            <div class="w-full flex flex-col sm:gap-4 gap-5 p-6 sm:p-8 rounded-md bg-azulClaro border border-azulClaro hover:border-black hover:bg-verdeClaro transition-colors duration-300">
+                    <h3 class="text-sm font-extralight font-stretch-92%">QUE HACE DIFERENTE MI TRABAJO</h3>
+                <div class="linea"></div>
+                    <div >
+                    <h4 class="text-lg mb-0.5 text-black">Algo que te haga diferente</h4>
+                    <p class="text-base font-extralight ">Evita vacíos legales y errores operativos costosos. No nos la jugamos con los términos. Traducimos tus contratos, manuales Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+                    </div>
+                <div class="linea"></div>
+                    <div>
+                    <h4 class="text-lg mb-0.5 text-black">Otra cosa mas</h4>
+                    <p class="text-base font-extralight ">No nos la jugamos con los términos. Traducimos tus contratos, manuales y documentos técnicos con rigor absoluto, asegurando que cada palabra cumpla con la normativa de destino.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut la</p>
+                    </div>
+                <div class="linea"></div>
+                    <div>
+                    <h4 class="text-lg mb-0.5 text-black">Revisión y trato personalizado</h4>
+                    <p class="text-base font-extralight ">Revisamos juntos estilo y contexto para que el resultado final sea impecable y se adapte perfectamente a tu objetivos. Como si lo hubieras escrito tu.Lorem ipsum dolor sit amet, consectetur</p>
+                    </div>
+            </div>
+    </div>
+    </div>
+
+</section>
+</div>
+
+
+<!--  --   SECCIÓN 3: Opiniones   --   -->
+<section id="clientes" class="w-screen bg-blancoGris px-8 ">
+
+    <aside class="w-full max-w-7xl m-auto bg-verdeClaro rounded-md py-2.5 text-center text-black text-base font-extralight">
+       <a type="button" href="mailto:tu-correo@ejemplo.com?subject=Interesado%20en%20tus%20servicios&body=Hola!%20He%20visto%20tu%20web..."
+       class="hover:underline"> Pregúntame por todos los servicios disponible →</a>
+    </aside>
+
+            <!--   INTRODUCCIÓN Opiniones  -->
+            <div class="flex flex-col max-w-7xl m-auto sm:gap-15 py-20 items-center">
+
+                        <img class="w-auto sm:h-85  h-auto object-contain" src="IMG/ilus3.svg" alt="Ilustración 3">
+                <h2 class="text-3xl max-w-200 text-center text-black">Cuento con 5 años de experiencia trabajando de forma independiente para mas de 30 empresas</h2>
+                
+                    <figure class="flex flex-wrap justify-center gap-5">
+                        <svg class="sm:w-33 w-21 h-5 sm:h-10 "> <use xlink:href="assets/sprite.svg#logo-empresa-1"></use> </svg>
+                        <svg class="sm:w-33 w-21 h-5 sm:h-10 "> <use xlink:href="assets/sprite.svg#logo-empresa-1"></use> </svg>
+                        <svg class="sm:w-33 w-21 h-5 sm:h-10 "> <use xlink:href="assets/sprite.svg#logo-empresa-1"></use> </svg>
+                        <svg class="sm:w-33 w-21 h-5 sm:h-10 "> <use xlink:href="assets/sprite.svg#logo-empresa-1"></use> </svg>
+                    </figure>
+                    
+            <!--   CARD Opiniones  -->
+
+            <h3 class="text-3xl mt-20 text-center text-black">Y esto es lo que dicen de mi</h3>
+            <div class="w-full flex gap-10 flex-row snap-x snap-mandatory snap-always overflow-x-auto px-10 pb-10">
+
+     <article class="snap-center w-100 shrink-0 flex flex-col gap-4 items-center justify-start bg-white hover:bg-azulClaro hover:border-azulClaro transition-colors border border-primary rounded-md px-10 py-9">
+        <h5 class="text-lg font-extralight text-primary">Jose Manuel Cerdeña</h5>
+
+        <figure class="flex gap-1 justify-center items-center">
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <p class="text-lg text-naranja font-extralight">(5/5)</p>
+        </figure>
+            
+        <p class="text-base text-center font-extralight">
+            At first, I wasn't sure if I even know the difference between the different flavours of olive oil. But now I have tried Smooth and Punchy, I understand how different they can be. The Balsamic was also delicious, I has it with some punchy and bread the other night. Completely recommend!
+        </p>
+
+        <div class="flex gap-2">
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">MANUAL</h6>
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">ITALIANO</h6>
+        </div>
+    </article>
+
+     <article class="snap-center w-100 shrink-0 flex flex-col gap-4 items-center justify-start bg-white hover:bg-azulClaro hover:border-azulClaro transition-colors border border-primary rounded-md px-10 py-9">
+        <h5 class="text-lg font-extralight text-primary">Jose Manuel Cerdeña</h5>
+
+        <figure class="flex gap-1 justify-center items-center">
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <p class="text-lg text-naranja font-extralight">(5/5)</p>
+        </figure>
+            
+        <p class="text-base text-center font-extralight">
+            At first, I wasn't sure if I even know the difference between the different flavours of olive oil. But now I have tried Smooth and Punchy, I understand how different they can be. The Balsamic was also delicious, I has it with some punchy and bread the other night. Completely recommend!
+        </p>
+
+        <div class="flex gap-2">
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">MANUAL</h6>
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">ITALIANO</h6>
+        </div>
+    </article>
+
+     <article class="snap-center w-100 shrink-0 flex flex-col gap-4 items-center justify-start bg-white hover:bg-azulClaro hover:border-azulClaro transition-colors border border-primary rounded-md px-10 py-9">
+        <h5 class="text-lg font-extralight text-primary">Jose Manuel Cerdeña</h5>
+
+        <figure class="flex gap-1 justify-center items-center">
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <p class="text-lg text-naranja font-extralight">(5/5)</p>
+        </figure>
+            
+        <p class="text-base text-center font-extralight">
+            At first, I wasn't sure if I even know the difference between the different flavours of olive oil. But now I have tried Smooth and Punchy, I understand how different they can be. The Balsamic was also delicious, I has it with some punchy and bread the other night. Completely recommend!
+        </p>
+
+        <div class="flex gap-2">
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">MANUAL</h6>
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">ITALIANO</h6>
+        </div>
+    </article>
+
+    <article class="snap-center w-100 shrink-0 flex flex-col gap-4 items-center justify-start bg-white hover:bg-azulClaro hover:border-azulClaro transition-colors border border-primary rounded-md px-10 py-9">
+        <h5 class="text-lg font-extralight text-primary">Jose Manuel Cerdeña</h5>
+
+        <figure class="flex gap-1 justify-center items-center">
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <svg class="w-4 h-4 fill-naranja"> <use xlink:href="assets/sprite.svg#icon-star"></use></svg>
+            <p class="text-lg text-naranja font-extralight">(5/5)</p>
+        </figure>
+            
+        <p class="text-base text-center font-extralight">
+            At first, I wasn't sure if I even know the difference between the different flavours of olive oil. But now I have tried Smooth and Punchy, I understand how different they can be. The Balsamic was also delicious, I has it with some punchy and bread the other night. Completely recommend!
+        </p>
+
+        <div class="flex gap-2">
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">MANUAL</h6>
+            <h6 class="py-1 px-2 border rounded-full border-primary font-extralight text-sm font-stretch-92% text-primary hover:bg-verdeClaro" style="text-box: trim-both cap alphabetic;">ITALIANO</h6>
+        </div>
+    </article>
+
+    <div class="shrink-0 w-1"></div>
+</div>
+          
+</section>
+
+<section id="contacto" class="w-screen flex flex-col items-center gap-10 py-30 px-8 bg-primary-oscuro">
+
+    <h2 class="md:text-5xl text-4xl  font-medium text-white text-center">¿En que te podría ayudar?</h2>
+    <div class="flex flex-wrap gap-4 max-w-4xl items-center justify-center">
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black " type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20manuales&body=Hola!%20Me%20gustaría%20recibir%20más%20información%20sobre...">Manuales</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20catálogos&body=Hola!%20Me%20gustaría%20recibir%20más%20información%20sobre...">Catálogos</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20artículos&body=Hola!%20Me%20gustaría%20recibir%20más%20información%20sobre...">Artículos</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20audiovisual&body=Hola!%20Me%20gustaría%20recibir%20más%20información%20sobre...">Audiovisual</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20traducción%20publicitaria&body=Hola!%20Me%20gustaría%20recibir%20más%20información%20sobre...">Traducción Publicitaria</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%20sobre%20catálogos&body=Hola!%20Me%２０gustaría%２０recibir%２０más%２０información％２０sobre...">Catálogos</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta%２０sobre％２０artículos＆body=Hola!％２０Me％２０gustaría％２０recibir％２０más％２０información％２０sobre...">Artículos</a>
+        <a class="py-3 px-4 rounded-lg md:text-2xl text-xl font-light fit text-primary-oscuro bg-white hover:bg-azulClaro hover:text-black" type="button" href="mailto:hola@tuempresa.com?subject=Consulta％２０sobre％２０audiovisual＆body=Hola!％２０Me％２０gustaría％２０recibir％２０más％２０información％２０sobre...">Audiovisual</a>
+    </div>
+    <p class="text-base tracking-wide font-extralight text-white">info@mairnatraduccion.com</p>
+
+</section>
+
+<footer class="w-screen flex flex-col items-center gap-6 pt-25 px-8 bg-blancoGris">
+    <svg width="400px" height="50px"><use xlink:href="assets/sprite.svg#icon-logo"></use></svg>
+    <p class="btn-primary border-none bg-white">SERVICIOS DE TRADUCCIÓN</p>
+    <div class="flex justify-between pt-3 mt-10 border-t border-primary w-full max-w-7xl m-auto">
+        <dress> 34 8473838423 / info@mairnatraduccion.com</dress>
+        <div class="flex gap-3">
+            <a class="btn-primary" href="/servicios">SERVICIOS</a>
+            <a class="btn-primary" href="/contacto">CLIENTES</a>
+            <a class="btn-primary" href="/contacto">CONTACTO</a>
+        </div>
+    </div>
+        <figure class="w-screen">
+            <svg width="100%" height="21"> <use xlink:href="assets/sprite.svg#lineas-olas"></use> </svg>
+            <svg width="100%" height="21"> <use xlink:href="assets/sprite.svg#lineas-olas"></use> </svg>
+            <svg width="100%" height="21"> <use xlink:href="assets/sprite.svg#lineas-olas"></use> </svg>
+            <svg width="100%" height="21"> <use xlink:href="assets/sprite.svg#figura-olas"></use> </svg>
+        </figure>
+    </div>
+</footer>
+</main>
+</body>
+</html>
